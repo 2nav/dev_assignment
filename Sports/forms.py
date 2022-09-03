@@ -6,3 +6,9 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = []
+
+
+class CancelBookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = []

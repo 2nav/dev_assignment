@@ -1,0 +1,22 @@
+{% extends 'Users/base.html' %} {%load crispy_forms_tags %} {% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <h4 class="article-title" href="#">{{ object.booker.username }}</h2>
+    <div class="article-metadata"></div>
+    <h5 class="mt-2">Time Start - {{object.slot.timeStart}}</h5>
+    <h5 class="mt-2">Time End - {{object.slot.timeStart}}</h5>
+
+    {% if object.status %}
+    <h5>Available</h5>
+    <form method="POST">
+      {% csrf_token %}
+      <!-- <input tupe="datetime-local" value="2022-06-19T16:39:57"> -->
+      <input type="submit" value="Cancel Booking" class="btn btn-primary" />
+    </form>
+    {% else %}
+    <h5>Cancelled</h5>
+    {% endif %}
+  </div>
+</article>
+
+{% endblock content %}

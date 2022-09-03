@@ -1,5 +1,6 @@
 import django.utils
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Sport(models.Model):
@@ -34,7 +35,9 @@ class Slot(models.Model):
 
 
 class Booking(models.Model):
-    slot = models.OneToOneField(Slot, on_delete=models.CASCADE)
+    slot = models.ForeignKey(Slot, on_delete=models.CASCADE)
+    booker = models.ForeignKey(
+        User, on_delete=models.CASCADE)
     status = models.BooleanField()
     bookingDate = models.DateField(default=django.utils.timezone.now())
     bookingTime = models.DateTimeField(default=django.utils.timezone.now())

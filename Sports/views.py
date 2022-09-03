@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import BookingForm
+from .forms import BookingForm, CancelBookingForm
 
-from Sports.models import Court, Inventory, Slot, Sport
+from Sports.models import Booking, Court, Inventory, Slot, Sport
 
 
 @login_required
@@ -32,11 +32,13 @@ def SlotDetailView(request, id):
         form = BookingForm(request.POST)
 
         if form.is_valid():
-            form.instance.slot = Slot.objects.get(id=id)
+
+            form.instance.booker = request.user
+            form.instance.status = True
             # form.save()
             slot.available = False
             slot.save()
-            form.instance.status = True
+            form.instance.slot = Slot.objects.get(id=id)
             form.save()
             messages.success(
                 request, f'Request for slot successfully approved')
@@ -44,3 +46,30 @@ def SlotDetailView(request, id):
         form = BookingForm()
         slot = Slot.objects.get(id=id)
     return render(request, 'Sports/slot_detail.html', {'object': slot, 'form': form})
+
+
+class BookingListView(ListView):
+    model = Booking
+    context_object_name = 'bookings'
+    ordering = ['-bookingTime']
+
+
+def BookingDetailView(request, id):
+    if request.method == 'POST':
+        booking = Booking.objects.get(id=id)
+        form = CancelBookingForm(request.POST, instance=booking)
+
+        if form.is_valid():
+            form.instance.slot.available = True
+            form.instance.booker = request.user
+            # form.save()
+
+            form.instance.slot.save()
+            form.instance.status = False
+            form.save()
+            messages.success(
+                request, f'Booking successfully cancelled')
+    else:
+        booking = Booking.objects.get(id=id)
+        form = CancelBookingForm(instance=booking)
+    return render(request, 'Sports/booking_detail.html', {'object': booking, 'form': form})
