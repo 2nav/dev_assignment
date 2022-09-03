@@ -1,0 +1,21 @@
+{% extends 'Users/base.html' %} {%load crispy_forms_tags %} {% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <h2 class="article-title" href="#">{{ object.sport }}</h2>
+    <div class="article-metadata"></div>
+    <h5 class="mt-2">Date Requested - {{object.timeStart}}</h5>
+    <h5>ISBN - {{object.timeEnd}}</h5>
+    {% if object.available %}
+    <h5>Available</h5>
+    <form method="POST">
+      {% csrf_token %}
+      <!-- <input tupe="datetime-local" value="2022-06-19T16:39:57"> -->
+      <input type="submit" value="Approve" class="btn btn-primary" />
+    </form>
+    {% else %}
+    <h5>Not Available</h5>
+    {% endif %}
+  </div>
+</article>
+
+{% endblock content %}

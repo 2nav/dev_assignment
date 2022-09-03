@@ -29,5 +29,7 @@ urlpatterns = [
     path('register/', user_views.register, name='register'),
     path('logout/', auth_views.LogoutView.as_view(template_name='Users/logout.html'), name='logout'),
     path('profile/', user_views.profile, name='profile'),
+    path('slots/', sport_views.SlotListView.as_view(), name='slot-list'),
+    path('slots/<int:id>', sport_views.SlotDetailView, name='slot-detail')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

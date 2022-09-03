@@ -30,6 +30,7 @@ class Slot(models.Model):
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
     timeStart = models.DateTimeField()
     timeEnd = models.DateTimeField()
+    available = models.BooleanField(default=False)
 
 
 class Booking(models.Model):
