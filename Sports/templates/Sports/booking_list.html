@@ -1,6 +1,6 @@
-{% extends 'Users/base.html' %} {% block content %}
-
+{% extends 'Users/base.html' %} {% block content %} {% load extras %}
 <h2>Bookings</h2>
+{% if user|is_group:"staff" %}
 <table>
   <thead>
     <tr>
@@ -27,5 +27,6 @@
     {% endfor %}
   </tbody>
 </table>
-
-{% endblock content %}
+{% else %}
+<h3>You don't have permission to view Bookings</h3>
+{% endif %} {% endblock content %}

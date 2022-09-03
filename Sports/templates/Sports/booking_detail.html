@@ -1,5 +1,6 @@
-{% extends 'Users/base.html' %} {%load crispy_forms_tags %} {% block content %}
+{% extends 'Users/base.html' %} {%load crispy_forms_tags %} {% block content %} {% load extras %}
 <article class="media content-section">
+    {% if user|is_group:"staff" %}
   <div class="media-body">
     <h4 class="article-title" href="#">{{ object.booker.username }}</h2>
     <div class="article-metadata"></div>
@@ -18,5 +19,8 @@
     {% endif %}
   </div>
 </article>
+{% else %} 
+<h3>You don't have permission to view this</h3>
+{% endif %}
 
 {% endblock content %}

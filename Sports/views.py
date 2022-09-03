@@ -8,12 +8,17 @@ import django.utils
 from Sports.models import Booking, Court, Inventory, Slot, Sport
 
 
+def is_member(grp, user):
+    return user.groups.filter(name=grp).exists()
+
+
 @login_required
 def home(request):
     sports = Sport.objects.all()
     return render(request, 'Sports/home.html', {'sports': sports})
 
 
+@login_required
 def sportsDetailView(request, id):
     sport = Sport.objects.get(id=id)
     context = {'sport': sport, 'courts': Court.objects.filter(sport=sport), 'inventories': Inventory.objects.filter(sport=sport)
@@ -27,6 +32,7 @@ class SlotListView(ListView):
     ordering = ['-timeStart']
 
 
+@login_required
 def SlotDetailView(request, id):
     if request.method == 'POST':
         slot = Slot.objects.get(id=id)
@@ -57,6 +63,7 @@ class BookingListView(ListView):
     ordering = ['-bookingTime']
 
 
+@login_required
 def BookingDetailView(request, id):
     if request.method == 'POST':
         booking = Booking.objects.get(id=id)
