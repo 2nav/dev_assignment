@@ -11,3 +11,4 @@ I haven't deployed on Heroku. The local versioncan be started by `python manage.
 - Each sport has its own page
 - Have limited booking slots to 3 per user per day, haven't tested this much though.
 - Acceptance of requests is automatic
+- User can view his profile with his bookings

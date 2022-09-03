@@ -1,10 +1,36 @@
 {% extends 'Users/base.html' %} {% load crispy_forms_tags %} {% block content %}
 <div class="content-section">
   <div class="media">
-    <img class="rounded-circle account-img" src="{{user.profile.image.url}}" />
     <div class="media-body">
       <h2 class="account-heading">{{user.username}}</h2>
       <p class="text-secondary">{{user.email}}</p>
+    </div>
+    <div>
+      <h3>My Bookings</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>SNo</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Booking time</th>
+            <th>Person</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{booking.id}}</td>
+            <td>{{booking.slot.timeStart}}</td>
+            <td>{{booking.slot.timeEnd}}</td>
+            <td>{{booking.bookingTime}}</td>
+            <td>{{booking.booker}}</td>
+            <td>{{booking.status}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
   <!-- FORM HERE -->
@@ -12,7 +38,7 @@
     {% csrf_token %}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Profile Info</legend>
-      {{u_form|crispy}} {{p_form|crispy}}
+      {{u_form|crispy}}
     </fieldset>
     <div class="form-group">
       <button class="btn btn-outline-info" type="submit">Update</button>
