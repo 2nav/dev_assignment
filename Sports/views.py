@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import BookingForm, CancelBookingForm
+import django.utils
 
 from Sports.models import Booking, Court, Inventory, Slot, Sport
 
@@ -32,16 +33,18 @@ def SlotDetailView(request, id):
         form = BookingForm(request.POST)
 
         if form.is_valid():
-
-            form.instance.booker = request.user
-            form.instance.status = True
-            # form.save()
-            slot.available = False
-            slot.save()
-            form.instance.slot = Slot.objects.get(id=id)
-            form.save()
-            messages.success(
-                request, f'Request for slot successfully approved')
+            if len(Booking.objects.filter(booker=request.user).filter(bookingDate=django.utils.timezone.now())) > 3:
+                messages.error(request, 'only 3 bookings per day')
+            else:
+                form.instance.booker = request.user
+                form.instance.status = True
+                # form.save()
+                slot.available = False
+                slot.save()
+                form.instance.slot = Slot.objects.get(id=id)
+                form.save()
+                messages.success(
+                    request, f'Request for slot successfully approved')
     else:
         form = BookingForm()
         slot = Slot.objects.get(id=id)
