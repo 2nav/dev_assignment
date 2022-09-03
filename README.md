@@ -1,6 +1,6 @@
 # dev_assignment
 
-I haven't deployed on Heroku. The local versioncan be started by `python manage.py runserver` after creating a venv and installing requirements.txt as instructed in the readme of Assignment 5.
+I haven't deployed on Heroku. The local version can be started by `python manage.py runserver` after creating a venv and installing requirements.txt as instructed in the readme of Assignment 5.
 
 ## General Features
 
@@ -12,3 +12,5 @@ I haven't deployed on Heroku. The local versioncan be started by `python manage.
 - Have limited booking slots to 3 per user per day, haven't tested this much though.
 - Acceptance of requests is automatic
 - User can view his profile with his bookings
+
+[Google Doc for thinking on this](https://docs.google.com/document/d/1ShKLlhXoeRVF1hiiAmQ8MeSl85bJsyjBmXGKl4cCDJY/edit?usp=sharing)
