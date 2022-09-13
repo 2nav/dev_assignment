@@ -39,7 +39,7 @@ def SlotDetailView(request, id):
         form = BookingForm(request.POST)
 
         if form.is_valid():
-            if len(Booking.objects.filter(booker=request.user).filter(bookingDate=django.utils.timezone.now())) > 3:
+            if len(Booking.objects.filter(booker=request.user).filter(bookingDate=django.utils.timezone.now())) > 2:
                 messages.error(request, 'only 3 bookings per day')
             else:
                 form.instance.booker = request.user
